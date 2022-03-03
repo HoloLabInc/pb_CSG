@@ -63,7 +63,10 @@ namespace Parabox.CSG
             for (int i = 0; i < this.polygons.Count; i++)
                 this.polygons[i].Flip();
 
-            this.plane.Flip();
+            if (this.plane != null)
+            {
+                this.plane.Flip();
+            }
 
             if (this.front != null)
             {
@@ -87,7 +90,14 @@ namespace Parabox.CSG
         public void Build(List<Polygon> list)
         {
             if (list.Count < 1)
+            {
+                if (polygons == null)
+                {
+                    polygons = new List<Polygon>();
+                }
+
                 return;
+            }
 
             bool newNode = plane == null || !plane.Valid(); 
 
@@ -131,7 +141,7 @@ namespace Parabox.CSG
         // Recursively remove all polygons in `polygons` that are inside this BSP tree.
         public List<Polygon> ClipPolygons(List<Polygon> list)
         {
-            if (!this.plane.Valid())
+            if (plane == null || !this.plane.Valid())
             {
                 return list;
             }

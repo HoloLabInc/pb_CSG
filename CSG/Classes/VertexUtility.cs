@@ -204,6 +204,11 @@ namespace Parabox.CSG
 
             mesh.Clear();
 
+            if(vertices.Count == 0)
+            {
+                return;
+            }
+
             Vertex first = vertices[0];
 
             if (first.hasPosition) mesh.vertices = positions;
